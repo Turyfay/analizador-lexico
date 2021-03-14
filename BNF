@@ -1,0 +1,9 @@
+BNF  Lenguajes de Programacion
+<Programa>::=<LineaCodigo>
+<LineaCodigo>::=<Instrucciones>|<LineaCodigo><Instrucciones>
+<Instrucciones>::=<sentencia-repeticion>|<sentencia-condicional>|<expresion>
+
+<sentencia-repeticion>::=<sentencia-mientras>|<sentencia-repetir>|<sentencia-para>
+<sentencia-mientras>::=MIENTRAS<condicion>HACER<LineaCodigo>FIN-MIENTRAS
+<sentencia-repetir>::=REPETIR<LineaCodigo>HASTA<condicion>
+<sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
