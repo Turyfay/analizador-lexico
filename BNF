@@ -10,3 +10,5 @@ BNF  Lenguajes de Programacion
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
 <operando>::=<id>|<constante>
+<constante>::=<entero>|<flotante>|<cadena>
+<cadena>::=<letra>|<cadena><letra>
