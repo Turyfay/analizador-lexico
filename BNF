@@ -7,3 +7,5 @@ BNF  Lenguajes de Programacion
 <sentencia-mientras>::=MIENTRAS<condicion>HACER<LineaCodigo>FIN-MIENTRAS
 <sentencia-repetir>::=REPETIR<LineaCodigo>HASTA<condicion>
 <sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
+<condicion>::= (<booleano>)
+<cooleano>::= 1 | 0 | <operando> <opBooleano> <operando>
