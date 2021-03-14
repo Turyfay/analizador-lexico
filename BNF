@@ -1,7 +1,7 @@
 BNF  Lenguajes de Programacion
 <Programa>::=<LineaCodigo>
 <LineaCodigo>::=<Instrucciones>|<LineaCodigo><Instrucciones>
-<Instrucciones>::=<sentencia-repeticion>|<sentencia-condicional>|<expresion>
+<Instrucciones>::=<sentencia-repeticion>|<sentencia-condicional>|<expresion>|
 
 <sentencia-repeticion>::=<sentencia-mientras>|<sentencia-repetir>|<sentencia-para>
 <sentencia-mientras>::=MIENTRAS<condicion>HACER<LineaCodigo>FIN-MIENTRAS
@@ -10,7 +10,10 @@ BNF  Lenguajes de Programacion
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
 <operando>::=<id>|<constante>
-<constante>::=<entero>|<flotante>|<cadena>
+<constante>::=<Entero>|<flotante>|<cadena>
 <cadena>::=<letra>|<cadena><letra>
 <letra>::=a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
+<Entero>::=<signo><digito>|<Entero><digito>
+<signo>::= +|-|*|/|%
+
 
