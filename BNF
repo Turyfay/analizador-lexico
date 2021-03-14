@@ -16,5 +16,5 @@ BNF  Lenguajes de Programacion
 <signo>::= + | -
 <digito>::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
 <flotante>::= <entero>.<digito> | <flotante><digito>
-<operando>::= <id> | <aritmetica>
+<operando>::= <id> | <aritmetica> | <valorNum>
 <id>::= <cadena> | <id><digito>
