@@ -8,13 +8,5 @@ BNF  Lenguajes de Programacion
 <sentencia-repetir>::=REPETIR<LineaCodigo>HASTA<condicion>
 <sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
 <condicion>::= (<booleano>)
-<booleano>::= 1 | 0 | <operando><opBooleano><operando>
-<opBooleano>::= < | > | == | != | <= | =<
-<Aritmetica>::= <valorNum><opAritmetico><valorNum>
-<valorNum>::= <entero> | <flotante>
-<entero>::= <signo><digito> | <entero><digito>
-<signo>::= + | -
-<digito>::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0
-<flotante>::= <entero>.<digito> | <flotante><digito>
-<operando>::= <id> | <aritmetica> | <valorNum>
-<id>::= <cadena> | <id><digito>
+<booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
+<operando>::=<id>|<constante>
