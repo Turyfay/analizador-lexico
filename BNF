@@ -1,13 +1,14 @@
 BNF  Lenguajes de Programacion
 <Programa>::=<LineaCodigo>
 <LineaCodigo>::=<Instrucciones>|<LineaCodigo><Instrucciones>
-<Instrucciones>::=<sentencia-repeticion>|<sentencia-condicional>|<expresion>
+
+<Instrucciones>::=<sentencia-repeticion>|<sentencia-condicional>|<expresion>|<Funcion>
 
 <sentencia-repeticion>::=<sentencia-mientras>|<sentencia-repetir>|<sentencia-para>
 <sentencia-mientras>::=MIENTRAS<condicion>HACER<LineaCodigo>FIN-MIENTRAS
 <sentencia-repetir>::=REPETIR<LineaCodigo>HASTA<condicion>
 <sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
-<sentencia-condicional>::=SI<condicion><LineaCodigo> FIN-SI | SI<condicion><LineaCodigo>SINO<LineaCodigo>FIN-SI
+<sentencia-para>::=PARA <variable> DESDE<Entero> HASTA<Entero> INCREMENTO<Entero><LineaCodigo>FIN-PARA
 
 <funcion>::=<tipo> <id>(<listaparametros>) {<LineaCodigo>}|<tipo> <id>() {<LineaCodigo>}
 <llamado-funcion>::=<id>()|<id>(<listaparametrosf)
