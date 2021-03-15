@@ -13,7 +13,7 @@ BNF  Lenguajes de Programacion
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
 <operando>::=<id>|<constante>|<variable>|<entero>|<flotante>|<expresion-aritmetica>
-<expresion-aritmatica>::=<operando><operador-aritmetico><operando>
+<expresion-aritmatica>::=<operando><operador-aritmetico><operando> | sqrt(<operando>)
 <operador-aritmetico>::=+|-|*|/|%
 <variable>::=<Id>
 <Id>::=<Cadena>|<Id><Digito>
