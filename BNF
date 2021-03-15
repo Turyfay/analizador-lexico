@@ -9,12 +9,12 @@ BNF  Lenguajes de Programacion
 <sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
 <sentencia-condicional>::=SI<condicion><LineaCodigo> FIN-SI | SI<condicion><LineaCodigo>SINO<LineaCodigo>FIN-SI
 
-<funcion>::=<id> (<listaarametros>) :<tipo>{<LineaCodigo>}
+<funcion>::=<tipo> <id>(<listaparametros>) {<LineaCodigo>}|<tipo> <id>() {<LineaCodigo>}
 
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
 <operando>::=<id>|<constante>|<variable>|<entero>|<flotante>|<expresion-aritmetica>
-<expresion-aritmatica>::=<operando><operador-aritmetico><operando> | sqrt(<operando>)
+<expresion-aritmetica>::=<operando><operador-aritmetico><operando> | sqrt(<operando>)
 <operador-aritmetico>::=+|-|*|/|%
 <asignacion>::=<variable>=<valor>
 <variable>::=<tipo><Id>|<Id>
@@ -29,3 +29,5 @@ BNF  Lenguajes de Programacion
 <valor>=<expresion-aritmetica>|<constante>
 <Flotante>::=<Entero>.<Digito>|<Flotante><Digito>
 <OperadorBool>::=>|<|==|!=|<=|>=
+<listaparametros>::=<parametro>|<listaparametro>,<parametro>
+<parametro>::=<tipo><Id>|<tipo><valor>
