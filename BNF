@@ -23,4 +23,6 @@ BNF  Lenguajes de Programacion
 <Entero>::=<signo><digito>|<Entero><digito>
 <signo>::= +|-
 <Digito>::=0|1|2|3|4|5|6|7|8|9
-
+<Flotante>::=<Entero>.<Digito>|<Flotante><Digito>
+<Id>::=<Cadena>|<Id><Digito>
+<OperadorBool>::=>|<|==|!=|<=|>=
