@@ -12,11 +12,11 @@ BNF  Lenguajes de Programacion
 
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
-<operando>::=<id>|<constante>|<variable>|<entero>|<flotante>
+<operando>::=<id>|<constante>|<variable>|<entero>|<flotante>|<expresion-aritmetica>
 <expresion-aritmatica>::=<operando><operador-aritmetico><operando>
 <operador-aritmetico>::=+|-|*|/|%
-<variable>::=<id>
-<id>::=<letra>|<id><digito>
+<variable>::=<Id>
+<Id>::=<Cadena>|<Id><Digito>
 <constante>::=<Entero>|<flotante>|<cadena>
 <cadena>::=<letra>|<cadena><letra>
 <letra>::=a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
@@ -24,5 +24,4 @@ BNF  Lenguajes de Programacion
 <signo>::= +|-
 <Digito>::=0|1|2|3|4|5|6|7|8|9
 <Flotante>::=<Entero>.<Digito>|<Flotante><Digito>
-<Id>::=<Cadena>|<Id><Digito>
 <OperadorBool>::=>|<|==|!=|<=|>=
