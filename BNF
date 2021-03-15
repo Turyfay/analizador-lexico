@@ -9,6 +9,7 @@ BNF  Lenguajes de Programacion
 <sentencia-para>::=PARA <variable>|<constante>DESDE<numero> HASTA<numero> INCREMENTO<numero><LineaCodigo>FIN-PARA
 <sentencia-condicional>::=SI<condicion><LineaCodigo> FIN-SI | SI<condicion><LineaCodigo>SINO<LineaCodigo>FIN-SI
 
+<funcion>::=<id> (<listaarametros>) :<tipo>{<LineaCodigo>}
 
 <condicion>::= (<booleano>)
 <booleano>::=1|0|verdad|falso|<operando><operadorBool><operando>
