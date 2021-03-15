@@ -16,8 +16,8 @@ BNF  Lenguajes de Programacion
 <expresion-aritmatica>::=<operando><operador-aritmetico><operando> | sqrt(<operando>)
 <operador-aritmetico>::=+|-|*|/|%
 <asignacion>::=<variable>=<valor>
-<variable>::=<tipo><Id>
-<tipo>::=<int>|<char>
+<variable>::=<tipo><Id>|<Id>
+<tipo>::=int|char|string|booleano|float|double
 <Id>::=<Cadena>|<Id><Digito>
 <constante>::=<Entero>|<flotante>|<cadena>
 <cadena>::=<letra>|<cadena><letra>
@@ -25,6 +25,6 @@ BNF  Lenguajes de Programacion
 <Entero>::=<signo><digito>|<Entero><digito>
 <signo>::= +|-
 <Digito>::=0|1|2|3|4|5|6|7|8|9
-
+<valor>=<expresion-aritmetica>|<constante>
 <Flotante>::=<Entero>.<Digito>|<Flotante><Digito>
 <OperadorBool>::=>|<|==|!=|<=|>=
