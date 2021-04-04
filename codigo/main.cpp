@@ -1,5 +1,6 @@
 
-/*AUTOMATAS
+/*
+ANALIZADOR LEXICO V1.0
 
 */
 #include <stdio.h>
@@ -11,6 +12,7 @@
 #include <iostream>
 #include <iterator>
 #include <iomanip>
+#include "cli.cpp"
 #define MAX 650
 #define MAX_RES 22
 
@@ -33,7 +35,7 @@ void imprimirResultado();
 int auxTR = 0;
 int auxTV = 0;
 
-main()
+ main()
 {
     //INICIAR Identificador
     int cont = 0;
@@ -48,16 +50,15 @@ main()
         tokenIdentificador[i] = "";
     }
 
+   
     //ENTRADA DE LINEA DE CODIGO.
     system("COLOR 0A");
-    printf("Ingrese una linea de codigo: ");
-    //fflush(stdin);
-    getline(cin, LineaCodigo);
-    ListaPalabras = split(LineaCodigo);
-    //fflush(stdin);
+    menu();
     system("cls");
     system("COLOR 0B");
-    while (cont < ListaPalabras.size())
+
+
+   /*  while (cont < ListaPalabras.size())
     {
         if (palabraReservada(ListaPalabras[cont]) == true)
         {
@@ -76,8 +77,9 @@ main()
 
     //IMPRIMIR EL RESULTADO
     cout << "EXPRESION: " + LineaCodigo;
-    imprimirResultado();
+    imprimirResultado(); */
     getch();
+    return 0;
 }
 
 //IMPRIMIR RESULTADOS
