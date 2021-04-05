@@ -2,6 +2,7 @@
 #include <iostream>
 //Libreria fstream  que sirve para la creacion la escritura y lecturas de archivos
 #include <fstream>
+//Permite almacenar datos que se ingresan dentro de un vector
 #include <vector>
 #define MAX 650
 #define MAX_RES 22
