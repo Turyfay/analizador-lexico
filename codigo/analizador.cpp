@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+//Libreria fstream  que sirve para la creacion la escritura y lecturas de archivos
 #include <fstream>
 #include <vector>
 #define MAX 650
