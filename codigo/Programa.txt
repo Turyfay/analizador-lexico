@@ -1,0 +1,17 @@
+girarRuedad(){
+
+ maximoGiro 
+
+}
+
+desplazar(){
+
+}
+
+captarImagen(){
+
+}
+
+enviarInformacion(){
+
+}
