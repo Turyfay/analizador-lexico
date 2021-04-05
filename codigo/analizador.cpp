@@ -75,33 +75,79 @@ vector<char>* leerArchivo(string direccionArchivo){
 }
 
 void analizar(vector<char>* contenido){
-    string palabra;
+    //Identificador de simbolo
+    string simbolo;
+    //Lista de simbolos encontrados
+    vector<string> simbolos;
+    //estado del automata, estado inicial 0
     int estado = 0;
     while(contenido->size()!=0){
+        //Leyendo primer caracter del vector que contiene el codigo
         char c = contenido->front();
         switch(estado){
         case 0:
-            if(c >= 'a' && c <= 'z'){
-                palabra.push_back(c);
+            //cout<<"case 0"<<endl;
+            if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')){
+                //Se identifica el primer caracter como una letra
+                //Guardar letra en la cadena de simbolo
+                simbolo.push_back(c);
+                //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
+                //Pasa al estado de aceptación 1
                 estado=1;
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}'){
+                //Se identifica simbolos aceptados
+                //Guardar simbolo en la cadena de simbolo
+                simbolo.push_back(c);
+                //Guardar simbolo en el vector de simbolos
+                simbolos.push_back(simbolo);
+                cout<<"simbolo guardado: "<<simbolo<<endl;
+                //Borrado de cadena simbolo para leer uno nuevo
+                simbolo.clear();
+                //Borrar el primer caracter del vector para continuar leyendo
+                contenido->erase(contenido->begin());
+            }else if(c==' '|| c=='\n'){
+                //Se identifica un salto de linea o espacio
+                //Borrado de salto de linea o espacio del vector
+                contenido->erase(contenido->begin());
+            }else{
+                estado = 2;
             }
             break;
         case 1:
-            if(c >= 'a' && c <= 'z'){
-                palabra.push_back(c);
+            //cout<<"case 1"<<endl;
+            //Estado de aceptación 1, si continua leyendo letras se guardan en simbolo
+            if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')){
+                //Se identifica el primer caracter como una letra
+                //Guardar letra en la cadena de simbolo
+                simbolo.push_back(c);
+                //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
+                //Continua en estado 1 hasta que deje de leer letras
             }else{
-                estado=2;
+                //Se guarda el simbolo en el vector simbolos
+                simbolos.push_back(simbolo);
+                cout<<"simbolo guardado: "<<simbolo<<endl;
+                //Borrado de arreglo simbolo para almacenar uno nuevo
+                simbolo.clear();
+                //Pasa al estado 0 a leer nuevo simbolo
+                estado = 0;
             }
             break;
         case 2:
+            //cout<<"case 2"<<endl;
             contenido->erase(contenido->begin());
             break;
         }
     }
-    cout << palabra;
+
+    cout<<"\nLista de simbolos encontrados: "<<endl;
+
+    for(int i=0;i<simbolos.size();i++){
+        cout<<simbolos[i]<<endl;
+    }
 }
+
 
 
 void archivoReumen(){
