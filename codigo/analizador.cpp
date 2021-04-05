@@ -95,7 +95,7 @@ void analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 //Pasa al estado de aceptación 1
                 estado=1;
-            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c == '<' || c== '>'|| c=='='){
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'){
                 //Se identifica simbolos aceptados
                 //Guardar simbolo en la cadena de simbolo
                 simbolo.push_back(c);
@@ -152,6 +152,48 @@ void analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 //Continua en estado 2 hasta que deje de leer dígitos
 
+            }else if(c == '.'){
+                //Se identifica el primer caracter como punto
+                //Guarda el punto en la cadena de simbolo
+                simbolo.push_back(c);
+                //Borra el primer caracter del vector para continuar leyendo
+                contenido->erase(contenido->begin());
+                //Cambia al estado 3
+                estado = 3;
+
+            }else{
+                //Se guarda el simbolo en el vector simbolos
+                simbolos.push_back(simbolo);
+                cout<<"simbolo guardado: "<<simbolo<<endl;
+                //Borrado de arreglo simbolo para almacenar uno nuevo
+                simbolo.clear();
+                //Pasa al estado 0 a leer nuevo simbolo
+                estado = 0;
+            }
+            break;
+        case 3:
+            //cout<<"Case 3"<<endl;
+            if(c >= '0' && c<= '9'){
+                //Se identifica el primer caracter como dígito
+                //Guarda dígito en la cadena de simbolo
+                simbolo.push_back(c);
+                //Borra el primer caracter del vector para continuar leyendo
+                contenido->erase(contenido->begin());
+                //Cambia a estado 4
+                estado = 4;
+            }else{
+                //Definir estado de error
+            }
+            break;
+        case 4:
+            //cout<<"case 4"<<endl;
+            if(c >= '0' && c<= '9'){
+                //Se identifica el primer caracter como dígito
+                //Guarda dígito en la cadena de simbolo
+                simbolo.push_back(c);
+                //Borra el primer caracter del vector para continuar leyendo
+                contenido->erase(contenido->begin());
+                //Continua en estado 4 hasta que deje de leer dígitos
             }else{
                 //Se guarda el simbolo en el vector simbolos
                 simbolos.push_back(simbolo);
@@ -171,7 +213,6 @@ void analizar(vector<char>* contenido){
         cout<<simbolos[i]<<endl;
     }
 }
-
 
 void archivoReumen(){
 
