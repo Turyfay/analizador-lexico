@@ -75,7 +75,32 @@ vector<char>* leerArchivo(string direccionArchivo){
 }
 
 void analizar(vector<char>* contenido){
-    cout << contenido[0][0];
+    string palabra;
+    int estado = 0;
+    while(contenido->size()!=0){
+        char c = contenido->front();
+        switch(estado){
+        case 0:
+            if(c >= 'a' && c <= 'z'){
+                palabra.push_back(c);
+                contenido->erase(contenido->begin());
+                estado=1;
+            }
+            break;
+        case 1:
+            if(c >= 'a' && c <= 'z'){
+                palabra.push_back(c);
+                contenido->erase(contenido->begin());
+            }else{
+                estado=2;
+            }
+            break;
+        case 2:
+            contenido->erase(contenido->begin());
+            break;
+        }
+    }
+    cout << palabra;
 }
 
 
