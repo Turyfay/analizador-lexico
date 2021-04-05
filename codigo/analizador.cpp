@@ -16,6 +16,8 @@ string palabrasReservadas[MAX_RES] =  {"SI", "FIN-SI", "SINO", "PARA", "DESDE", 
                                       "salida->", "entrada->", "verdad", "falso", "sqrt", "int",
                                       "char", "strring", "booleano", "float", "double"};
 
+string simbolosAritmeticos[] = {"+", "-", "*", "/", "%"};
+
 string tokenPalabraReservada[MAX];
 string tokenIdentificador[MAX];
 //PROCEDIMIENTOS
@@ -311,3 +313,33 @@ vector<string> split(string str)
     }
     return resultado;
 }
+
+//RECIBE EL VECTOR Y LO COMPARA CON LAS PALABRAS RESERVADAS
+vector<string> comparar(vector<string> vec){
+	vect
+	vector<string> final;
+	
+	for(int i=0; i<vec.size(); i++){
+		
+		for(int j=0; j<palabrasReservadas.size(); j++){
+			
+			if(vec[i] == palabrasReservadas[j]){
+				final.push_back("Palabra reservada "+vec[i]);
+			}else{
+				for(int k=0; k<simbolosAritmeticos.size(); k++){
+					if(vec[i] == simbolosAritmeticos[k]){
+				    	final.push_back("Simbolo Aritmetico "+vec[i]);
+				    }
+				}
+				
+			}
+			
+
+		}		
+	}
+
+}
+
+
+
+
