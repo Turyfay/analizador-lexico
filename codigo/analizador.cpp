@@ -81,14 +81,14 @@ vector<char>* leerArchivo(string direccionArchivo){
 }
 
 vector<string> analizar(vector<char>* contenido){
-    string tokensimbolo = ": Token = Simbolo";
-    string tokenidentificador = ": Token = Identificador";
-    string tokenentero = ": Token = NÃºmero entero";
-    string tokenflotante = ": Token = NÃºmero flotante";
-    //Identificador de simbolo
-    string simbolo;
-    //Lista de simbolos encontrados
+    //Identificador de elemento
+    string elemento;
+    //Listas de elementos encontrados
     vector<string> simbolos;
+    vector<string> identificador;
+    vector<string> numeroEntero;
+    vector<string> numeroFlotante;
+
     //estado del automata, estado inicial 0
     int estado = 0;
     while(contenido->size()!=0){
@@ -100,20 +100,20 @@ vector<string> analizar(vector<char>* contenido){
             if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')){
                 //Se identifica el primer caracter como una letra
                 //Guardar letra en la cadena de simbolo
-                simbolo.push_back(c);
+                elemento.push_back(c);
                 //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Pasa al estado de aceptación 1
                 estado=1;
             }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'){
                 //Se identifica simbolos aceptados
-                //Guardar simbolo en la cadena de simbolo
-                simbolo.push_back(c);
-                //Guardar simbolo en el vector de simbolos
-                simbolos.push_back(simbolo);
-                cout<<"simbolo guardado: "<<simbolo<<endl;
-                //Borrado de cadena simbolo para leer uno nuevo
-                simbolo.clear();
+                //Guardar elemento en la cadena de simbolo
+                elemento.push_back(c);
+                //Guardar elemento en el vector de simbolos
+                simbolos.push_back(elemento);
+                cout<<"elemento guardado: "<<elemento<<endl;
+                //Borrado de cadena elemento para leer uno nuevo
+                elemento.clear();
                 //Borrar el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
             }else if(c==' '|| c=='\n'){
@@ -121,9 +121,9 @@ vector<string> analizar(vector<char>* contenido){
                 //Borrado de salto de linea o espacio del vector
                 contenido->erase(contenido->begin());
             }else if(c >= '0' && c<= '9'){
-                //Se idenficica dígito
-                //guardar dígito en cadena de simbolo
-                simbolo.push_back(c);
+                //Se idenficica digito
+                //guardar digito en cadena de elemento
+                elemento.push_back(c);
                 //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Pasa al estado de aceptación 2
@@ -134,59 +134,59 @@ vector<string> analizar(vector<char>* contenido){
             break;
         case 1:
             //cout<<"case 1"<<endl;
-            //Estado de aceptación 1, si continua leyendo letras se guardan en simbolo
+            //Estado de aceptación 1, si continua leyendo letras se guardan en elemento
             if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')||(c >= '0' && c<= '9')){
-                //Se identifica el primer caracter como una letra o dígito
-                //Guardar letra en la cadena de simbolo
-                simbolo.push_back(c);
+                //Se identifica el primer caracter como una letra o digito
+                //Guardar letra en la cadena de elemento
+                elemento.push_back(c);
                 //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Continua en estado 1 hasta que deje de leer letras o dígitos
+                //Continua en estado 1 hasta que deje de leer letras o digitos
             }else{
-                //Se guarda el simbolo en el vector simbolos
-                simbolos.push_back(simbolo);
-                cout<<"simbolo guardado: "<<simbolo<<endl;
-                //Borrado de arreglo simbolo para almacenar uno nuevo
-                simbolo.clear();
-                //Pasa al estado 0 a leer nuevo simbolo
+                //Se guarda el elemento en el vector identificadores
+                identificador.push_back(elemento);
+                cout<<"elemento guardado: "<<elemento<<endl;
+                //Borrado de arreglo elemento para almacenar uno nuevo
+                elemento.clear();
+                //Pasa al estado 0 a leer nuevo elemento
                 estado = 0;
             }
             break;
         case 2:
             //cout<<"case 2"<<endl;
             if(c >= '0' && c<= '9'){
-                //Se identifica el primer caracter como dígito
-                //Guarda dígito en la cadena de simbolo
-                simbolo.push_back(c);
+                //Se identifica el primer caracter como digito
+                //Guarda digito en la cadena de elemento
+                elemento.push_back(c);
                 //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Continua en estado 2 hasta que deje de leer dígitos
+                //Continua en estado 2 hasta que deje de leer digitos
 
             }else if(c == '.'){
                 //Se identifica el primer caracter como punto
-                //Guarda el punto en la cadena de simbolo
-                simbolo.push_back(c);
+                //Guarda el punto en la cadena de elemento
+                elemento.push_back(c);
                 //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Cambia al estado 3
                 estado = 3;
 
             }else{
-                //Se guarda el simbolo en el vector simbolos
-                simbolos.push_back(simbolo);
-                cout<<"simbolo guardado: "<<simbolo<<endl;
-                //Borrado de arreglo simbolo para almacenar uno nuevo
-                simbolo.clear();
-                //Pasa al estado 0 a leer nuevo simbolo
+                //Se guarda el elemento en el vector entero
+                numeroEntero.push_back(elemento);
+                cout<<"elemento guardado: "<<elemento<<endl;
+                //Borrado de arreglo elemento para almacenar uno nuevo
+                elemento.clear();
+                //Pasa al estado 0 a leer nuevo elemento
                 estado = 0;
             }
             break;
         case 3:
             //cout<<"Case 3"<<endl;
             if(c >= '0' && c<= '9'){
-                //Se identifica el primer caracter como dígito
-                //Guarda dígito en la cadena de simbolo
-                simbolo.push_back(c);
+                //Se identifica el primer caracter como digito
+                //Guarda digito en la cadena de elemento
+                elemento.push_back(c);
                 //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Cambia a estado 4
@@ -199,27 +199,43 @@ vector<string> analizar(vector<char>* contenido){
             //cout<<"case 4"<<endl;
             if(c >= '0' && c<= '9'){
                 //Se identifica el primer caracter como dígito
-                //Guarda dígito en la cadena de simbolo
-                simbolo.push_back(c);
+                //Guarda dígito en la cadena de elemento
+                elemento.push_back(c);
                 //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Continua en estado 4 hasta que deje de leer dígitos
             }else{
-                //Se guarda el simbolo en el vector simbolos
-                simbolos.push_back(simbolo);
-                cout<<"simbolo guardado: "<<simbolo<<endl;
-                //Borrado de arreglo simbolo para almacenar uno nuevo
-                simbolo.clear();
-                //Pasa al estado 0 a leer nuevo simbolo
+                //Se guarda el elemento en el vector flotantes
+                numeroFlotante.push_back(elemento);
+                cout<<"elemento guardado: "<<elemento<<endl;
+                //Borrado de arreglo elemento para almacenar uno nuevo
+                elemento.clear();
+                //Pasa al estado 0 a leer nuevo elemento
                 estado = 0;
             }
             break;
         }
     }
-	
+
+    cout<<"\n////////////// TOKENS SIMBOLOS //////////////"<<endl;
+    for(int i = 0; i<simbolos.size();i++){
+        cout<<simbolos[i]<<endl;
+    }
+    cout<<"\n////////// TOKENS IDENTIFICADORES //////////"<<endl;
+    for(int i = 0; i<identificador.size();i++){
+        cout<<identificador[i]<<endl;
+    }
+    cout<<"\n////////////// TOKENS ENTEROS //////////////"<<endl;
+    for(int i = 0; i<numeroEntero.size();i++){
+        cout<<numeroEntero[i]<<endl;
+    }
+    cout<<"\n///////////// TOKENS FLOTANTES /////////////"<<endl;
+    for(int i = 0; i<numeroFlotante.size();i++){
+        cout<<numeroFlotante[i]<<endl;
+    }
+
 	return simbolos;
 }
-
 void archivoResumen(){
     ofstream file;
     file.open("ResumenLexico.txt");
