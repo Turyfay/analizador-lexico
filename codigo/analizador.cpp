@@ -18,6 +18,10 @@ string palabrasReservadas[MAX_RES] =  {"SI", "FIN-SI", "SINO", "PARA", "DESDE", 
 
 string simbolosAritmeticos[] = {"+", "-", "*", "/", "%"};
 
+string operadoresComparacion[] = {"==", "!=", "&&", "||"};
+
+string operadoresAsignacion[] = {"=", "->"};
+
 string tokenPalabraReservada[MAX];
 string tokenIdentificador[MAX];
 //PROCEDIMIENTOS
@@ -314,28 +318,41 @@ vector<string> split(string str)
     return resultado;
 }
 
+
 //RECIBE EL VECTOR Y LO COMPARA CON LAS PALABRAS RESERVADAS
 vector<string> comparar(vector<string> vec){
-	vect
 	vector<string> final;
 	
+	//recorremos cada elemento del vector que recibe
 	for(int i=0; i<vec.size(); i++){
-		
+		//comparar con cada palabra reservada
 		for(int j=0; j<palabrasReservadas.size(); j++){
-			
+			//si son iguales entonces guardamos en final el tipo y el dato
 			if(vec[i] == palabrasReservadas[j]){
 				final.push_back("Palabra reservada "+vec[i]);
-			}else{
-				for(int k=0; k<simbolosAritmeticos.size(); k++){
-					if(vec[i] == simbolosAritmeticos[k]){
-				    	final.push_back("Simbolo Aritmetico "+vec[i]);
-				    }
-				}
-				
 			}
-			
-
-		}		
+		}
+		//comparar con cada operador Aritmetico
+		for(int k=0; k<simbolosAritmeticos.size(); k++){
+			//si son iguales entonces guardamos en final el tipo y el dato
+			if(vec[i] == simbolosAritmeticos[k]){
+	  	    	        final.push_back("Operador Aritmetico "+vec[i]);
+		    }
+		}
+		//comparar con cada operador de Comparacion
+		for(int l=0; l<operadoresComparacion.size(); l++){
+			//si son iguales entonces guardamos en final el tipo y el dato
+			if(vec[i] == operadoresComparacion[l]){
+				final.push_back("Operador Comparacion "+vec[i]);
+			}
+		}
+		//comparar con cada operador de asignacion
+		for(int m=0; m<operadoresAsignacion.size(); m++){
+			//si son iguales entonces guardamos en final el tipo y el dato
+			if(vec[i] == operadoresAsignacion[m]){
+				final.push_back("Operador Asingnacion"+vec[i]);
+			}
+		}
 	}
 
 }
