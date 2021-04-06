@@ -81,6 +81,10 @@ vector<char>* leerArchivo(string direccionArchivo){
 }
 
 vector<string> analizar(vector<char>* contenido){
+    string tokensimbolo = ": Token = Simbolo";
+    string tokenidentificador = ": Token = Identificador";
+    string tokenentero = ": Token = NÃºmero entero";
+    string tokenflotante = ": Token = NÃºmero flotante";
     //Identificador de simbolo
     string simbolo;
     //Lista de simbolos encontrados
