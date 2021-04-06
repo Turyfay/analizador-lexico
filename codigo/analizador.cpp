@@ -80,7 +80,7 @@ vector<char>* leerArchivo(string direccionArchivo){
     return contenido;
 }
 
-void analizar(vector<char>* contenido){
+vector<string> analizar(vector<char>* contenido){
     //Identificador de simbolo
     string simbolo;
     //Lista de simbolos encontrados
@@ -212,12 +212,8 @@ void analizar(vector<char>* contenido){
             break;
         }
     }
-
-    cout<<"\nLista de simbolos encontrados: "<<endl;
-
-    for(int i=0;i<simbolos.size();i++){
-        cout<<simbolos[i]<<endl;
-    }
+	
+	return simbolos;
 }
 
 void archivoResumen(){
