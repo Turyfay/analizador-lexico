@@ -220,8 +220,14 @@ void analizar(vector<char>* contenido){
     }
 }
 
-void archivoReumen(){
-
+void archivoResumen(){
+    ofstream file;
+    file.open("ResumenLexico.txt");
+    file << "\n-----------------------\n|Identificador|\n-----------------------";
+    for (int i = 0; i < auxTV; i++)
+    {
+        file << tokenIdentificador[i] + "\n";
+    }
 }
 
 //IMPRIMIR RESULTADOS
