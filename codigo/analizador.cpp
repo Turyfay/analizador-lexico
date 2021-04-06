@@ -360,6 +360,7 @@ vector<string> comparar(vector<string> vec){
 			}
 		}
 	}
+	return final;
 
 }
 
