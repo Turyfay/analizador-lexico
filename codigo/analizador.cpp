@@ -16,12 +16,6 @@ string palabrasReservadas[MAX_RES] =  {"SI", "FIN-SI", "SINO", "PARA", "DESDE", 
                                       "salida->", "entrada->", "verdad", "falso", "sqrt", "int",
                                       "char", "strring", "booleano", "float", "double"};
 
-string simbolosAritmeticos[] = {"+", "-", "*", "/", "%"};
-
-string operadoresComparacion[] = {"==", "!=", "&&", "||"};
-
-string operadoresAsignacion[] = {"=", "->"};
-
 string tokenPalabraReservada[MAX];
 string tokenIdentificador[MAX];
 //PROCEDIMIENTOS
