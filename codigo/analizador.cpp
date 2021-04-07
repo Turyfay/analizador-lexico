@@ -26,7 +26,7 @@ string tokenPalabraReservada[MAX];
 string tokenIdentificador[MAX];
 //PROCEDIMIENTOS
 vector<string> split(string str);
-bool palabraReservada(string palabra);
+bool esPalabraReservada(string palabra);
 bool Identificador(string palabra);
 void imprimirResultado();
 
@@ -87,7 +87,7 @@ vector<char>* leerArchivo(string direccionArchivo){
     return contenido;
 }
 
-vector<string> analizar(vector<char>* contenido){
+void analizar(vector<char>* contenido){
     //Identificador de elemento
     string elemento;
 
@@ -150,7 +150,7 @@ vector<string> analizar(vector<char>* contenido){
 		}else{
 		    identificador.push_back(elemento);
 		}
-		identificador.push_back(elemento);
+		
 		cout<<"elemento guardado: "<<elemento<<endl;
 		elemento.clear();
 		estado = 0;
@@ -308,7 +308,7 @@ bool Identificador(string palabra)
 }
 
 //VERIFICAR PALARA RESERVADA
-bool palabraReservada(string palabra)
+bool esPalabraReservada(string palabra)
 {
     bool esReservada = false;
     for (int i = 0; i < MAX_RES; i++)
@@ -343,47 +343,4 @@ vector<string> split(string str)
     }
     return resultado;
 }
-
-
-//RECIBE EL VECTOR Y LO COMPARA CON LAS PALABRAS RESERVADAS
-vector<string> comparar(vector<string> vec){
-	vector<string> final;
-	
-	//recorremos cada elemento del vector que recibe
-	for(int i=0; i<vec.size(); i++){
-		//comparar con cada palabra reservada
-		for(int j=0; j<palabrasReservadas.size(); j++){
-			//si son iguales entonces guardamos en final el tipo y el dato
-			if(vec[i] == palabrasReservadas[j]){
-				final.push_back("Palabra reservada "+vec[i]);
-			}
-		}
-		//comparar con cada operador Aritmetico
-		for(int k=0; k<simbolosAritmeticos.size(); k++){
-			//si son iguales entonces guardamos en final el tipo y el dato
-			if(vec[i] == simbolosAritmeticos[k]){
-	  	    	        final.push_back("Operador Aritmetico "+vec[i]);
-		    }
-		}
-		//comparar con cada operador de Comparacion
-		for(int l=0; l<operadoresComparacion.size(); l++){
-			//si son iguales entonces guardamos en final el tipo y el dato
-			if(vec[i] == operadoresComparacion[l]){
-				final.push_back("Operador Comparacion "+vec[i]);
-			}
-		}
-		//comparar con cada operador de asignacion
-		for(int m=0; m<operadoresAsignacion.size(); m++){
-			//si son iguales entonces guardamos en final el tipo y el dato
-			if(vec[i] == operadoresAsignacion[m]){
-				final.push_back("Operador Asingnacion"+vec[i]);
-			}
-		}
-	}
-	return final;
-
-}
-
-
-
 
