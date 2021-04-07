@@ -30,6 +30,13 @@ bool palabraReservada(string palabra);
 bool Identificador(string palabra);
 void imprimirResultado();
 
+//Listas de elementos encontrados
+vector<string> simbolos;
+vector<string> identificador;
+vector<string> numeroEntero;
+vector<string> numeroFlotante;
+vector<string> palabraReservada;
+
 //Identificador auxiliares para guardar en Tokens
 int auxTR = 0;
 int auxTV = 0;
@@ -83,11 +90,6 @@ vector<char>* leerArchivo(string direccionArchivo){
 vector<string> analizar(vector<char>* contenido){
     //Identificador de elemento
     string elemento;
-    //Listas de elementos encontrados
-    vector<string> simbolos;
-    vector<string> identificador;
-    vector<string> numeroEntero;
-    vector<string> numeroFlotante;
 
     //estado del automata, estado inicial 0
     int estado = 0;
@@ -143,13 +145,15 @@ vector<string> analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 //Continua en estado 1 hasta que deje de leer letras o digitos
             }else{
-                //Se guarda el elemento en el vector identificadores
-                identificador.push_back(elemento);
-                cout<<"elemento guardado: "<<elemento<<endl;
-                //Borrado de arreglo elemento para almacenar uno nuevo
-                elemento.clear();
-                //Pasa al estado 0 a leer nuevo elemento
-                estado = 0;
+		if(esPalabraReservada(elemento)){
+		    palabraReservada.push_back(elemento);
+		}else{
+		    identificador.push_back(elemento);
+		}
+		identificador.push_back(elemento);
+		cout<<"elemento guardado: "<<elemento<<endl;
+		elemento.clear();
+		estado = 0;
             }
             break;
         case 2:
