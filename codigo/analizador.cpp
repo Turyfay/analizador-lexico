@@ -97,33 +97,29 @@ void analizar(vector<char>* contenido){
                 //Se identifica el primer caracter como una letra
                 //Guardar letra en la cadena de simbolo
                 elemento.push_back(c);
-                //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Pasa al estado de aceptación 1
                 estado=1;
+		    
             }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'){
                 //Se identifica simbolos aceptados
-                //Guardar elemento en la cadena de simbolo
                 elemento.push_back(c);
                 //Guardar elemento en el vector de simbolos
                 simbolos.push_back(elemento);
                 cout<<"elemento guardado: "<<elemento<<endl;
-                //Borrado de cadena elemento para leer uno nuevo
                 elemento.clear();
-                //Borrar el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
+		    
             }else if(c==' '|| c=='\n'){
                 //Se identifica un salto de linea o espacio
                 //Borrado de salto de linea o espacio del vector
                 contenido->erase(contenido->begin());
+		    
             }else if(c >= '0' && c<= '9'){
                 //Se idenficica digito
-                //guardar digito en cadena de elemento
                 elemento.push_back(c);
-                //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Pasa al estado de aceptación 2
                 estado = 2;
+		    
             }else{
                 contenido->erase(contenido->begin());
             }
@@ -133,18 +129,17 @@ void analizar(vector<char>* contenido){
             //Estado de aceptación 1, si continua leyendo letras se guardan en elemento
             if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')||(c >= '0' && c<= '9')){
                 //Se identifica el primer caracter como una letra o digito
-                //Guardar letra en la cadena de elemento
                 elemento.push_back(c);
-                //Borrar primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Continua en estado 1 hasta que deje de leer letras o digitos
+		    
             }else{
 		if(esPalabraReservada(elemento)){
 		    palabraReservada.push_back(elemento);
 		}else{
 		    identificador.push_back(elemento);
 		}
-		
+		//Se guarda el elemento en el vector palabraReservada o identificador
 		cout<<"elemento guardado: "<<elemento<<endl;
 		elemento.clear();
 		estado = 0;
@@ -154,28 +149,21 @@ void analizar(vector<char>* contenido){
             //cout<<"case 2"<<endl;
             if(c >= '0' && c<= '9'){
                 //Se identifica el primer caracter como digito
-                //Guarda digito en la cadena de elemento
                 elemento.push_back(c);
-                //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
                 //Continua en estado 2 hasta que deje de leer digitos
 
             }else if(c == '.'){
                 //Se identifica el primer caracter como punto
-                //Guarda el punto en la cadena de elemento
                 elemento.push_back(c);
-                //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Cambia al estado 3
                 estado = 3;
 
             }else{
                 //Se guarda el elemento en el vector entero
                 numeroEntero.push_back(elemento);
                 cout<<"elemento guardado: "<<elemento<<endl;
-                //Borrado de arreglo elemento para almacenar uno nuevo
                 elemento.clear();
-                //Pasa al estado 0 a leer nuevo elemento
                 estado = 0;
             }
             break;
@@ -183,12 +171,10 @@ void analizar(vector<char>* contenido){
             //cout<<"Case 3"<<endl;
             if(c >= '0' && c<= '9'){
                 //Se identifica el primer caracter como digito
-                //Guarda digito en la cadena de elemento
                 elemento.push_back(c);
-                //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Cambia a estado 4
                 estado = 4;
+		    
             }else{
                 //Definir estado de error
             }
@@ -197,19 +183,16 @@ void analizar(vector<char>* contenido){
             //cout<<"case 4"<<endl;
             if(c >= '0' && c<= '9'){
                 //Se identifica el primer caracter como dígito
-                //Guarda dígito en la cadena de elemento
                 elemento.push_back(c);
-                //Borra el primer caracter del vector para continuar leyendo
                 contenido->erase(contenido->begin());
-                //Continua en estado 4 hasta que deje de leer dígitos
+		    
             }else{
                 //Se guarda el elemento en el vector flotantes
                 numeroFlotante.push_back(elemento);
                 cout<<"elemento guardado: "<<elemento<<endl;
-                //Borrado de arreglo elemento para almacenar uno nuevo
                 elemento.clear();
-                //Pasa al estado 0 a leer nuevo elemento
                 estado = 0;
+		    
             }
             break;
         }
@@ -223,6 +206,10 @@ void analizar(vector<char>* contenido){
     for(int i = 0; i<identificador.size();i++){
         cout<<identificador[i]<<endl;
     }
+    cout<<"\n//////// TOKENS PALABRAS RESERVADAS ////////"<<endl;
+    for(int i = 0; i<palabraReservada.size();i++){
+        cout<<palabraReservada[i]<<endl;
+    }
     cout<<"\n////////////// TOKENS ENTEROS //////////////"<<endl;
     for(int i = 0; i<numeroEntero.size();i++){
         cout<<numeroEntero[i]<<endl;
@@ -232,7 +219,6 @@ void analizar(vector<char>* contenido){
         cout<<numeroFlotante[i]<<endl;
     }
 
-	return simbolos;
 }
 void archivoResumen(){
     ofstream file;
