@@ -22,7 +22,7 @@ string tokenIdentificador[MAX];
 vector<string> split(string str);
 bool esPalabraReservada(string palabra);
 bool Identificador(string palabra);
-void imprimirResultado();
+void archivoResumen();
 
 //Listas de elementos encontrados
 vector<string> simbolos;
@@ -31,37 +31,8 @@ vector<string> numeroEntero;
 vector<string> numeroFlotante;
 vector<string> palabraReservada;
 
-//Identificador auxiliares para guardar en Tokens
-int auxTR = 0;
-int auxTV = 0;
-/* for (int i = 0; i < MAX; i++)
-    {
-        tokenPalabraReservada[i] = "";
-    }
-    for (int i = 0; i < MAX; i++)
-    {
-        tokenIdentificador[i] = "";
-    }
- *//*  while (cont < ListaPalabras.size())
-    {
-        if (palabraReservada(ListaPalabras[cont]) == true)
-        {
-            tokenPalabraReservada[auxTR] = ListaPalabras[cont];
-            auxTR++;
-        }
-        else if (Identificador(ListaPalabras[cont]) == true)
-        {
-            tokenIdentificador[auxTV] = ListaPalabras[cont];
-            auxTV++;
-        }
-        cont++;
-    }
-
-    
-
-    //IMPRIMIR EL RESULTADO
-    cout << "EXPRESION: " + LineaCodigo;
-    imprimirResultado(); */
+//
+string nombreArchivoResumen;
 
 
 
@@ -105,7 +76,7 @@ void analizar(vector<char>* contenido){
                 elemento.push_back(c);
                 //Guardar elemento en el vector de simbolos
                 simbolos.push_back(elemento);
-                cout<<"elemento guardado: "<<elemento<<endl;
+                //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 contenido->erase(contenido->begin());
 		    
@@ -140,7 +111,7 @@ void analizar(vector<char>* contenido){
 		    identificador.push_back(elemento);
 		}
 		//Se guarda el elemento en el vector palabraReservada o identificador
-		cout<<"elemento guardado: "<<elemento<<endl;
+		//cout<<"elemento guardado: "<<elemento<<endl;
 		elemento.clear();
 		estado = 0;
             }
@@ -162,7 +133,7 @@ void analizar(vector<char>* contenido){
             }else{
                 //Se guarda el elemento en el vector entero
                 numeroEntero.push_back(elemento);
-                cout<<"elemento guardado: "<<elemento<<endl;
+                //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 estado = 0;
             }
@@ -189,7 +160,7 @@ void analizar(vector<char>* contenido){
             }else{
                 //Se guarda el elemento en el vector flotantes
                 numeroFlotante.push_back(elemento);
-                cout<<"elemento guardado: "<<elemento<<endl;
+                //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 estado = 0;
 		    
@@ -198,7 +169,7 @@ void analizar(vector<char>* contenido){
         }
     }
 
-    cout<<"\n////////////// TOKENS SIMBOLOS //////////////"<<endl;
+    /* cout<<"\n////////////// TOKENS SIMBOLOS //////////////"<<endl;
     for(int i = 0; i<simbolos.size();i++){
         cout<<simbolos[i]<<endl;
     }
@@ -217,35 +188,49 @@ void analizar(vector<char>* contenido){
     cout<<"\n///////////// TOKENS FLOTANTES /////////////"<<endl;
     for(int i = 0; i<numeroFlotante.size();i++){
         cout<<numeroFlotante[i]<<endl;
-    }
+    } */
+
+    //CREAR EL ARCHIVO RESUMEN.
+    archivoResumen();
+
+
 
 }
 void archivoResumen(){
+
+    cout << "Escriba el nombre del archivo de texto: ";
+    cin >> nombreArchivoResumen;
+
+
+
     ofstream file;
-    file.open("ResumenLexico.txt");
-    file << "\n-----------------------\n|Identificador|\n-----------------------";
-    for (int i = 0; i < auxTV; i++)
-    {
-        file << tokenIdentificador[i] + "\n";
+    file.open(nombreArchivoResumen + ".txt");
+    file <<"\n////////////// TOKENS SIMBOLOS //////////////\n";
+    for(int i = 0; i<simbolos.size();i++){
+        file <<simbolos[i];
     }
+    file <<"\n////////// TOKENS IDENTIFICADORES //////////\n";
+    for(int i = 0; i<identificador.size();i++){
+        file<<identificador[i] << "\n";
+    }
+    file <<"\n//////// TOKENS PALABRAS RESERVADAS ////////\n";
+    for(int i = 0; i<palabraReservada.size();i++){
+        file <<palabraReservada[i] << "\n";
+    }
+    file <<"\n////////////// TOKENS ENTEROS //////////////\n";
+    for(int i = 0; i<numeroEntero.size();i++){
+        file <<numeroEntero[i]<< "\n";
+    }
+    file <<"\n///////////// TOKENS FLOTANTES /////////////\n";
+    for(int i = 0; i<numeroFlotante.size();i++){
+        file << numeroFlotante[i] << "\n";
+    }
+
+    file.close();
+    cout << "Archivo " +nombreArchivoResumen+ " creado" ;
 }
 
-//IMPRIMIR RESULTADOS
-void imprimirResultado()
-{
-    puts("\n-----------------------\n|Palabras Reservadas|\n-----------------------");
-    for (int i = 0; i < auxTR; i++)
-    {
-        cout << i + 1;
-        cout << " " + tokenPalabraReservada[i] + "\n";
-    }
-    puts("\n-----------------------\n|Identificador|\n-----------------------");
-    for (int i = 0; i < auxTV; i++)
-    {
-        cout << i + 1;
-        cout << " " + tokenIdentificador[i] + "\n";
-    }
-}
+
 
 //VERIFICAR VARIABLE
 bool Identificador(string palabra)
@@ -302,25 +287,4 @@ bool esPalabraReservada(string palabra)
     return esReservada;
 }
 
-//CADENA EN VECTOR OBTENER PALABRAS
-vector<string> split(string str)
-{
-    vector<string> resultado;
-    string palabra;
-    int i = 0;
-    while (str.size() > i)
-    {
-        if (str[i] == ' ')
-        {
-            resultado.push_back(palabra);
-            palabra = "";
-        }
-        else
-        {
-            palabra += str[i];
-        }
-        i++;
-    }
-    return resultado;
-}
 
