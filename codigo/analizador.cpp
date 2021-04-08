@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <windows.h>
 //Libreria fstream  que sirve para la creacion la escritura y lecturas de archivos
 #include <fstream>
 //Permite almacenar datos que se ingresan dentro de un vector
@@ -23,6 +24,7 @@ vector<string> split(string str);
 bool esPalabraReservada(string palabra);
 bool Identificador(string palabra);
 void archivoResumen();
+void CargandoArchivo();
 
 //Listas de elementos encontrados
 vector<string> simbolos;
@@ -40,7 +42,7 @@ vector<char>* leerArchivo(string direccionArchivo){
 
     ifstream archivo;
     vector<char> *contenido = new vector<char>();
-    archivo.open(direccionArchivo,ios::in);//Abrir el archivo
+    archivo.open(direccionArchivo + ".txt",ios::in);//Abrir el archivo
     if(archivo.fail()){
         cout << "No se pudo leer el archivo.";
         exit(1);
@@ -197,10 +199,10 @@ void analizar(vector<char>* contenido){
 
 }
 void archivoResumen(){
-
+    
     cout << "Escriba el nombre del archivo de texto: ";
     cin >> nombreArchivoResumen;
-
+    CargandoArchivo();
 
 
     ofstream file;
@@ -230,7 +232,19 @@ void archivoResumen(){
     cout << "Archivo " +nombreArchivoResumen+ " creado" ;
 }
 
-
+void CargandoArchivo(){
+    int segundos=5;
+    for(int i=0; i<=21; i++)
+    cout << "\n";
+    cout << "\t\t\t\t   CARGANDO...\n";
+    for(int i=0; i<=79; i++)
+    {
+        cout<<char(219);
+        Sleep(segundos*1000/80);
+    }
+    cout<<"\nCompletado!";
+    
+}
 
 //VERIFICAR VARIABLE
 bool Identificador(string palabra)
