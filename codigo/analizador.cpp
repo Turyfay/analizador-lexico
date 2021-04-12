@@ -94,6 +94,9 @@ void analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 estado = 2;
 
+            }else if(int(c)==-1){
+                //Fin de archivo
+                contenido->erase(contenido->begin());
             }else{
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
@@ -109,7 +112,7 @@ void analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 //Continua en estado 1 hasta que deje de leer letras o digitos
 
-            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'|| c==' '|| c=='\n'){
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'|| c==' '|| c=='\n'|| (int(c)==-1)){
 
                 if(esPalabraReservada(elemento)){
                     palabraReservada.push_back(elemento);
@@ -142,24 +145,37 @@ void analizar(vector<char>* contenido){
                 contenido->erase(contenido->begin());
                 estado = 3;
 
-            }else{
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'|| c==' '|| c=='\n'|| (int(c)==-1)){
                 //Se guarda el elemento en el vector entero
                 numeroEntero.push_back(elemento);
                 //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 estado = 0;
+            }else{
+                //Detecta elemento no aceptado
+                //guardar caracter y pasar a estado de error
+                elemento.push_back(c);
+                contenido->erase(contenido->begin());
+                estado = 10;
             }
             break;
         case 3:
             //cout<<"Case 3"<<endl;
-            if(c >= '0' && c<= '9'){
+            if((c >= '0' && c<= '9')){
                 //Se identifica el primer caracter como digito
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
                 estado = 4;
 
+            }else if(int(c)==-1){
+                //Se detecta final de linea luego del punto
+                estado = 10;
             }else{
-                //Definir estado de error
+                //Detecta elemento no aceptado
+                //guardar caracter y pasar a estado de error
+                elemento.push_back(c);
+                contenido->erase(contenido->begin());
+                estado = 10;
             }
             break;
         case 4:
@@ -169,19 +185,25 @@ void analizar(vector<char>* contenido){
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
 
-            }else{
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'|| c==' '|| c=='\n'){
                 //Se guarda el elemento en el vector flotantes
                 numeroFlotante.push_back(elemento);
                 //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 estado = 0;
 
+            }else{
+                //Detecta elemento no aceptado
+                //guardar caracter y pasar a estado de error
+                elemento.push_back(c);
+                contenido->erase(contenido->begin());
+                estado = 10;
             }
             break;
         case 10:
             //Estado de error
-            cout<<"case 10"<<endl;
-            if(c == ' ' || c == '\n' || c == ';' || c == '='){
+            //cout<<"case 10 :"<<endl;
+            if(c == ' ' || c == '\n' || c == ';' || c == '=' || (int(c)==-1)){
                 //Guarda elemento en vector de errores
                 error.push_back(elemento);
                 elemento.clear();
@@ -194,6 +216,8 @@ void analizar(vector<char>* contenido){
         }
     }
 
+
+
     //CREAR EL ARCHIVO RESUMEN.
     archivoResumen();
 
@@ -202,7 +226,7 @@ void analizar(vector<char>* contenido){
 }
 void archivoResumen(){
 
-    cout << "Escriba el nombre del archivo de texto: ";
+    cout << "Escriba el nombre del archivo de texto de salida: ";
     cin >> nombreArchivoResumen;
     CargandoArchivo();
 
@@ -306,5 +330,6 @@ bool esPalabraReservada(string palabra)
     }
     return esReservada;
 }
+
 
 
