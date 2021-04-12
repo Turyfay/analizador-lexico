@@ -32,6 +32,7 @@ vector<string> identificador;
 vector<string> numeroEntero;
 vector<string> numeroFlotante;
 vector<string> palabraReservada;
+vector<string> error;
 
 //
 string nombreArchivoResumen;
@@ -48,7 +49,7 @@ vector<char>* leerArchivo(string direccionArchivo){
         exit(1);
     }
     while(!archivo.eof()){ //Leer mientras no sea el final del archivo.
-        
+
         contenido->push_back(archivo.get());
     }
     return contenido;
@@ -72,7 +73,7 @@ void analizar(vector<char>* contenido){
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
                 estado=1;
-		    
+
             }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'){
                 //Se identifica simbolos aceptados
                 elemento.push_back(c);
@@ -81,41 +82,50 @@ void analizar(vector<char>* contenido){
                 //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 contenido->erase(contenido->begin());
-		    
+
             }else if(c==' '|| c=='\n'){
                 //Se identifica un salto de linea o espacio
                 //Borrado de salto de linea o espacio del vector
                 contenido->erase(contenido->begin());
-		    
+
             }else if(c >= '0' && c<= '9'){
                 //Se idenficica digito
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
                 estado = 2;
-		    
+
             }else{
+                elemento.push_back(c);
                 contenido->erase(contenido->begin());
+                estado = 10;
             }
             break;
         case 1:
             //cout<<"case 1"<<endl;
             //Estado de aceptación 1, si continua leyendo letras se guardan en elemento
-            if((c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')||(c >= '0' && c<= '9')){
+            if((c=='_')||(c >= 'a' && c <= 'z')||(c >= 'A' && c<= 'Z')||(c >= '0' && c<= '9')){
                 //Se identifica el primer caracter como una letra o digito
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
                 //Continua en estado 1 hasta que deje de leer letras o digitos
-		    
+
+            }else if((c >= '(' && c<='+')|| c=='{'|| c=='}' || c=='-'|| c=='/'|| c=='%'||c== '<' || c== '>'|| c== '='|| c== ';'|| c==' '|| c=='\n'){
+
+                if(esPalabraReservada(elemento)){
+                    palabraReservada.push_back(elemento);
+                }else{
+                    identificador.push_back(elemento);
+                }
+                //Se guarda el elemento en el vector palabraReservada o identificador
+                //cout<<"elemento guardado: "<<elemento<<endl;
+                elemento.clear();
+                estado = 0;
             }else{
-		if(esPalabraReservada(elemento)){
-		    palabraReservada.push_back(elemento);
-		}else{
-		    identificador.push_back(elemento);
-		}
-		//Se guarda el elemento en el vector palabraReservada o identificador
-		//cout<<"elemento guardado: "<<elemento<<endl;
-		elemento.clear();
-		estado = 0;
+                //Detecta elemento no aceptado
+                //guardar caracter y pasar a estado de error
+                elemento.push_back(c);
+                contenido->erase(contenido->begin());
+                estado = 10;
             }
             break;
         case 2:
@@ -147,7 +157,7 @@ void analizar(vector<char>* contenido){
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
                 estado = 4;
-		    
+
             }else{
                 //Definir estado de error
             }
@@ -158,39 +168,31 @@ void analizar(vector<char>* contenido){
                 //Se identifica el primer caracter como dígito
                 elemento.push_back(c);
                 contenido->erase(contenido->begin());
-		    
+
             }else{
                 //Se guarda el elemento en el vector flotantes
                 numeroFlotante.push_back(elemento);
                 //cout<<"elemento guardado: "<<elemento<<endl;
                 elemento.clear();
                 estado = 0;
-		    
+
+            }
+            break;
+        case 10:
+            //Estado de error
+            cout<<"case 10"<<endl;
+            if(c == ' ' || c == '\n' || c == ';' || c == '='){
+                //Guarda elemento en vector de errores
+                error.push_back(elemento);
+                elemento.clear();
+                estado = 0;
+            }else{
+                elemento.push_back(c);
+                contenido->erase(contenido->begin());
             }
             break;
         }
     }
-
-    /* cout<<"\n////////////// TOKENS SIMBOLOS //////////////"<<endl;
-    for(int i = 0; i<simbolos.size();i++){
-        cout<<simbolos[i]<<endl;
-    }
-    cout<<"\n////////// TOKENS IDENTIFICADORES //////////"<<endl;
-    for(int i = 0; i<identificador.size();i++){
-        cout<<identificador[i]<<endl;
-    }
-    cout<<"\n//////// TOKENS PALABRAS RESERVADAS ////////"<<endl;
-    for(int i = 0; i<palabraReservada.size();i++){
-        cout<<palabraReservada[i]<<endl;
-    }
-    cout<<"\n////////////// TOKENS ENTEROS //////////////"<<endl;
-    for(int i = 0; i<numeroEntero.size();i++){
-        cout<<numeroEntero[i]<<endl;
-    }
-    cout<<"\n///////////// TOKENS FLOTANTES /////////////"<<endl;
-    for(int i = 0; i<numeroFlotante.size();i++){
-        cout<<numeroFlotante[i]<<endl;
-    } */
 
     //CREAR EL ARCHIVO RESUMEN.
     archivoResumen();
@@ -199,7 +201,7 @@ void analizar(vector<char>* contenido){
 
 }
 void archivoResumen(){
-    
+
     cout << "Escriba el nombre del archivo de texto: ";
     cin >> nombreArchivoResumen;
     CargandoArchivo();
@@ -207,7 +209,7 @@ void archivoResumen(){
 
     ofstream file;
     file.open(nombreArchivoResumen + ".txt");
-    file <<"\n////////////// TOKENS SIMBOLOS //////////////\n";
+    file <<"\n////////////// TOKENS SIMBOLOS /////////////\n";
     for(int i = 0; i<simbolos.size();i++){
         file <<simbolos[i];
     }
@@ -227,6 +229,10 @@ void archivoResumen(){
     for(int i = 0; i<numeroFlotante.size();i++){
         file << numeroFlotante[i] << "\n";
     }
+    file <<"\n///////////////// ERRORES //////////////////\n";
+    for(int i = 0; i<error.size();i++){
+        file << error[i] << "\n";
+    }
 
     file.close();
     cout << "Archivo " +nombreArchivoResumen+ " creado" ;
@@ -243,7 +249,7 @@ void CargandoArchivo(){
         Sleep(segundos*1000/80);
     }
     cout<<"\nCompletado!";
-    
+
 }
 
 //VERIFICAR VARIABLE
