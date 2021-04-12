@@ -170,6 +170,10 @@ void analizar(vector<char>* contenido){
             }else if(int(c)==-1){
                 //Se detecta final de linea luego del punto
                 estado = 10;
+            }else if(c=='\n' || c==' '){
+                //Detecta un salto de linea luego del punto de un flotante
+                contenido->erase(contenido->begin());
+                estado = 10;
             }else{
                 //Detecta elemento no aceptado
                 //guardar caracter y pasar a estado de error
@@ -216,14 +220,12 @@ void analizar(vector<char>* contenido){
         }
     }
 
-
-
     //CREAR EL ARCHIVO RESUMEN.
     archivoResumen();
 
-
-
 }
+
+
 void archivoResumen(){
 
     cout << "Escriba el nombre del archivo de texto de salida: ";
